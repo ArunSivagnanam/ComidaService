@@ -5,6 +5,279 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="activity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="45" />
+          <Property Name="CalorieBurnPrMin" Type="double" />
+        </EntityType>
+        <EntityType Name="classif">
+          <Key>
+            <PropertyRef Name="MainGrp" />
+            <PropertyRef Name="SubGrp" />
+          </Key>
+          <Property Name="MainGrp" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SubGrp" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EngFdGp" Type="varchar" MaxLength="255" />
+          <Property Name="OrigFdGp" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="compname">
+          <Key>
+            <PropertyRef Name="CompId" />
+          </Key>
+          <Property Name="CompId" Type="int" Nullable="false" />
+          <Property Name="SrtOrd" Type="varchar" MaxLength="255" />
+          <Property Name="Unit" Type="varchar" MaxLength="255" />
+          <Property Name="CmpNamDK" Type="varchar" MaxLength="255" />
+          <Property Name="CmpNamEN" Type="varchar" MaxLength="255" />
+          <Property Name="PublStatus" Type="varchar" MaxLength="50" />
+          <Property Name="EurofoodsTag" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="favoriterecepe">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RecepeID" Type="int" Nullable="false" />
+          <Property Name="Rating" Type="int" />
+        </EntityType>
+        <EntityType Name="foodinfo">
+          <Key>
+            <PropertyRef Name="FoodId" />
+          </Key>
+          <Property Name="FoodId" Type="int" Nullable="false" />
+          <Property Name="DanName" Type="varchar" MaxLength="255" />
+          <Property Name="ProdName" Type="varchar" MaxLength="255" />
+          <Property Name="EngName" Type="varchar" MaxLength="255" />
+          <Property Name="SysName" Type="varchar" MaxLength="255" />
+          <Property Name="MainGrp" Type="varchar" MaxLength="2" />
+          <Property Name="SubGrp" Type="varchar" MaxLength="2" />
+          <Property Name="Waste" Type="varchar" MaxLength="2" />
+          <Property Name="NCF" Type="varchar" MaxLength="6" />
+          <Property Name="FACF" Type="varchar" MaxLength="6" />
+          <Property Name="PEF" Type="varchar" MaxLength="10" />
+          <Property Name="FEF" Type="varchar" MaxLength="10" />
+          <Property Name="CEF" Type="varchar" MaxLength="10" />
+          <Property Name="Density" Type="varchar" MaxLength="10" />
+          <Property Name="Remarks" Type="varchar" MaxLength="255" />
+          <Property Name="PublStatus" Type="varchar" MaxLength="50" />
+          <Property Name="LanguaL" Type="varchar" MaxLength="250" />
+          <Property Name="GRIN" Type="varchar" MaxLength="10" />
+          <Property Name="FISHBASE" Type="varchar" MaxLength="50" />
+          <Property Name="BASIS" Type="varchar" MaxLength="10" />
+          <Property Name="USDA" Type="varchar" MaxLength="10" />
+          <Property Name="FIFood" Type="varchar" MaxLength="10" />
+          <Property Name="UKFood" Type="varchar" MaxLength="10" />
+          <Property Name="FRFood" Type="varchar" MaxLength="10" />
+          <Property Name="DEFood" Type="varchar" MaxLength="10" />
+          <Property Name="SEFood" Type="varchar" MaxLength="10" />
+          <Property Name="NOFood" Type="varchar" MaxLength="10" />
+          <Property Name="NLFood" Type="varchar" MaxLength="10" />
+          <Property Name="ISFood" Type="varchar" MaxLength="10" />
+          <Property Name="SPFood" Type="varchar" MaxLength="10" />
+          <Property Name="ITFood" Type="varchar" MaxLength="10" />
+          <Property Name="DateUpdated" Type="varchar" MaxLength="10" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="10" />
+          <Property Name="Recipe" Type="varchar" MaxLength="1" />
+          <Property Name="WaterYield" Type="varchar" MaxLength="10" />
+          <Property Name="FatYield" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="foodplan">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" />
+          <Property Name="CreationTime" Type="timestamp" Precision="0" />
+        </EntityType>
+        <EntityType Name="foodplanmembers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodPlanID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="foodplanrecepe">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodPlanID" Type="int" Nullable="false" />
+          <Property Name="RecepeID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="timestamp" Precision="0" />
+          <Property Name="Type" Type="varchar" MaxLength="45" />
+          <Property Name="Consumed" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'point' is currently not supported for the target Entity Framework version; the column 'Location' in the table 'def.comida-db.foodstore' was excluded.-->
+        <EntityType Name="foodstore">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="foodstoreitem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodStoreID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="double" />
+          <Property Name="Unit" Type="varchar" MaxLength="45" />
+          <Property Name="BoughtTime" Type="timestamp" Precision="0" />
+          <Property Name="Basic" Type="bit" />
+          <Property Name="ExpireDay" Type="timestamp" Precision="0" />
+          <Property Name="UseLess" Type="bit" />
+        </EntityType>
+        <EntityType Name="groupnames">
+          <Key>
+            <PropertyRef Name="MainGrp" />
+          </Key>
+          <Property Name="MainGrp" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="NameDK" Type="varchar" MaxLength="50" />
+          <Property Name="NameEn" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'def.comida-db.nutrients' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="nutrients">
+          <Property Name="FoodId" Type="int" />
+          <Property Name="CompId" Type="varchar" MaxLength="255" />
+          <Property Name="BestLoc" Type="varchar" MaxLength="255" />
+          <Property Name="Median" Type="varchar" MaxLength="255" />
+          <Property Name="Minimum" Type="varchar" MaxLength="255" />
+          <Property Name="Maximum" Type="varchar" MaxLength="255" />
+          <Property Name="NoAnal" Type="varchar" MaxLength="255" />
+          <Property Name="SourceId" Type="varchar" MaxLength="255" />
+        </EntityType>-->
+        <EntityType Name="recepe">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Owner" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" />
+          <Property Name="Description" Type="varchar" MaxLength="45" />
+          <Property Name="Rating" Type="int" />
+          <Property Name="Published" Type="bit" />
+          <Property Name="Details" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="recepecomments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecepeID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="longtext" />
+          <Property Name="Date" Type="timestamp" Precision="0" />
+        </EntityType>
+        <EntityType Name="recepeitem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecepeID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="double" />
+          <Property Name="Unit" Type="double" />
+        </EntityType>
+        <EntityType Name="recepestep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecepeID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="longtext" />
+        </EntityType>
+        <EntityType Name="references">
+          <Key>
+            <PropertyRef Name="RefId" />
+          </Key>
+          <Property Name="RefId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PubTypeId" Type="varchar" MaxLength="50" />
+          <Property Name="AcqTypeId" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="255" />
+          <Property Name="Authors" Type="varchar" MaxLength="255" />
+          <Property Name="Publishr" Type="varchar" MaxLength="255" />
+          <Property Name="PubDate" Type="varchar" MaxLength="255" />
+          <Property Name="Version" Type="varchar" MaxLength="50" />
+          <Property Name="OrigLang" Type="varchar" MaxLength="10" />
+          <Property Name="Languages" Type="varchar" MaxLength="10" />
+          <Property Name="ISBN" Type="varchar" MaxLength="50" />
+          <Property Name="FstEdDat" Type="varchar" MaxLength="50" />
+          <Property Name="EdNo" Type="varchar" MaxLength="50" />
+          <Property Name="NoPages" Type="varchar" MaxLength="255" />
+          <Property Name="BkTitle" Type="varchar" MaxLength="50" />
+          <Property Name="Editors" Type="varchar" MaxLength="255" />
+          <Property Name="Pages" Type="varchar" MaxLength="50" />
+          <Property Name="LgJrName" Type="varchar" MaxLength="255" />
+          <Property Name="AbJrName" Type="varchar" MaxLength="255" />
+          <Property Name="ISSN" Type="varchar" MaxLength="50" />
+          <Property Name="Volume" Type="varchar" MaxLength="255" />
+          <Property Name="Issue" Type="varchar" MaxLength="255" />
+          <Property Name="SeriName" Type="varchar" MaxLength="255" />
+          <Property Name="SeriNo" Type="varchar" MaxLength="50" />
+          <Property Name="RprtTitle" Type="varchar" MaxLength="255" />
+          <Property Name="FileFrmt" Type="varchar" MaxLength="50" />
+          <Property Name="WWW" Type="varchar" MaxLength="255" />
+          <Property Name="Medium" Type="varchar" MaxLength="50" />
+          <Property Name="OS" Type="varchar" MaxLength="50" />
+          <Property Name="Media" Type="varchar" MaxLength="50" />
+          <Property Name="Valid" Type="varchar" MaxLength="50" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" />
+          <Property Name="FoodId" Type="varchar" MaxLength="10" />
+          <Property Name="DateUpdated" Type="varchar" MaxLength="10" />
+          <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
+          <Property Name="DocLink" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="shoppinglist">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" />
+          <Property Name="CreationTime" Type="timestamp" Precision="0" />
+          <Property Name="DuoDate" Type="timestamp" Precision="0" />
+          <Property Name="Executed" Type="bit" />
+        </EntityType>
+        <EntityType Name="shoppinglistitem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShoppingListID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="double" />
+          <Property Name="Unit" Type="varchar" MaxLength="45" />
+          <Property Name="ExpireDay" Type="timestamp" Precision="0" />
+          <Property Name="Basic" Type="bit" />
+        </EntityType>
+        <EntityType Name="shoppinglistmembers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShoppingListID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sources">
+          <Key>
+            <PropertyRef Name="SourceRefId" />
+          </Key>
+          <Property Name="SourceRefId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SourceID" Type="varchar" MaxLength="5" />
+          <Property Name="RefId" Type="varchar" MaxLength="5" />
+        </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="ID" />
@@ -19,8 +292,426 @@
           <Property Name="Active" Type="bit" />
           <Property Name="SubscriptionType" Type="int" />
         </EntityType>
+        <EntityType Name="useractivity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ActivityID" Type="int" Nullable="false" />
+          <Property Name="CalorieBurn" Type="double" />
+          <Property Name="StartTime" Type="timestamp" Precision="0" />
+          <Property Name="EndTime" Type="timestamp" Precision="0" />
+        </EntityType>
+        <EntityType Name="userintake">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="ColorieBurn" Type="double" />
+          <Property Name="Amount" Type="double" />
+          <Property Name="Time" Type="timestamp" Precision="0" />
+        </EntityType>
+        <Association Name="activityConstraint">
+          <End Role="activity" Type="Self.activity" Multiplicity="1" />
+          <End Role="useractivity" Type="Self.useractivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="activity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="useractivity">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'foConst' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="foConst" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'fodPlConstr' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fodPlConstr" />-->
+        <Association Name="foodconst">
+          <End Role="foodinfo" Type="Self.foodinfo" Multiplicity="1" />
+          <End Role="userintake" Type="Self.userintake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodinfo">
+              <PropertyRef Name="FoodId" />
+            </Principal>
+            <Dependent Role="userintake">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foodstrrConstr">
+          <End Role="foodstore" Type="Self.foodstore" Multiplicity="1" />
+          <End Role="foodstoreitem" Type="Self.foodstoreitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodstore">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodstoreitem">
+              <PropertyRef Name="FoodStoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="itConstr">
+          <End Role="foodinfo" Type="Self.foodinfo" Multiplicity="1" />
+          <End Role="recepeitem" Type="Self.recepeitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodinfo">
+              <PropertyRef Name="FoodId" />
+            </Principal>
+            <Dependent Role="recepeitem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="iteConstr">
+          <End Role="foodinfo" Type="Self.foodinfo" Multiplicity="1" />
+          <End Role="foodstoreitem" Type="Self.foodstoreitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodinfo">
+              <PropertyRef Name="FoodId" />
+            </Principal>
+            <Dependent Role="foodstoreitem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="itemConst">
+          <End Role="foodinfo" Type="Self.foodinfo" Multiplicity="1" />
+          <End Role="shoppinglistitem" Type="Self.shoppinglistitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodinfo">
+              <PropertyRef Name="FoodId" />
+            </Principal>
+            <Dependent Role="shoppinglistitem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="memberConst">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="shoppinglistmembers" Type="Self.shoppinglistmembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="shoppinglistmembers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ownerConst">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="recepe" Type="Self.recepe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepe">
+              <PropertyRef Name="Owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="recepeConstr">
+          <End Role="recepe" Type="Self.recepe" Multiplicity="1" />
+          <End Role="recepecomments" Type="Self.recepecomments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepecomments">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reConstr">
+          <End Role="recepe" Type="Self.recepe" Multiplicity="1" />
+          <End Role="recepestep" Type="Self.recepestep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepestep">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reConstrr">
+          <End Role="recepe" Type="Self.recepe" Multiplicity="1" />
+          <End Role="recepeitem" Type="Self.recepeitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepeitem">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="resConstr">
+          <End Role="recepe" Type="Self.recepe" Multiplicity="1" />
+          <End Role="foodplanrecepe" Type="Self.foodplanrecepe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodplanrecepe">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="respConst">
+          <End Role="recepe" Type="Self.recepe" Multiplicity="1" />
+          <End Role="favoriterecepe" Type="Self.favoriterecepe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="favoriterecepe">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="shopListCons">
+          <End Role="shoppinglist" Type="Self.shoppinglist" Multiplicity="1" />
+          <End Role="shoppinglistitem" Type="Self.shoppinglistitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shoppinglist">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="shoppinglistitem">
+              <PropertyRef Name="ShoppingListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="shoppingListConst">
+          <End Role="shoppinglist" Type="Self.shoppinglist" Multiplicity="1" />
+          <End Role="shoppinglistmembers" Type="Self.shoppinglistmembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shoppinglist">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="shoppinglistmembers">
+              <PropertyRef Name="ShoppingListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usContr">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="foodplanmembers" Type="Self.foodplanmembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodplanmembers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userconst">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="userintake" Type="Self.userintake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="userintake">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userConstr">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="favoriterecepe" Type="Self.favoriterecepe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="favoriterecepe">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userConstraint">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="useractivity" Type="Self.useractivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="useractivity">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userConstrr">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="foodplan" Type="Self.foodplan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodplan">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserID">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="foodstore" Type="Self.foodstore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodstore">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userIDconst">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="shoppinglist" Type="Self.shoppinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="shoppinglist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usrConstr">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="recepecomments" Type="Self.recepecomments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepecomments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="activity" EntityType="Self.activity" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="classif" EntityType="Self.classif" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="compname" EntityType="Self.compname" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="favoriterecepe" EntityType="Self.favoriterecepe" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="foodinfo" EntityType="Self.foodinfo" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="foodplan" EntityType="Self.foodplan" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="foodplanmembers" EntityType="Self.foodplanmembers" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="foodplanrecepe" EntityType="Self.foodplanrecepe" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="foodstore" EntityType="Self.foodstore" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="foodstoreitem" EntityType="Self.foodstoreitem" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="groupnames" EntityType="Self.groupnames" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="recepe" EntityType="Self.recepe" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="recepecomments" EntityType="Self.recepecomments" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="recepeitem" EntityType="Self.recepeitem" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="recepestep" EntityType="Self.recepestep" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="references" EntityType="Self.references" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="shoppinglist" EntityType="Self.shoppinglist" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="shoppinglistitem" EntityType="Self.shoppinglistitem" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="shoppinglistmembers" EntityType="Self.shoppinglistmembers" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="sources" EntityType="Self.sources" Schema="comida-db" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="useractivity" EntityType="Self.useractivity" Schema="comida-db" store:Type="Tables" />
+          <EntitySet Name="userintake" EntityType="Self.userintake" Schema="comida-db" store:Type="Tables" />
+          <AssociationSet Name="activityConstraint" Association="Self.activityConstraint">
+            <End Role="activity" EntitySet="activity" />
+            <End Role="useractivity" EntitySet="useractivity" />
+          </AssociationSet>
+          <AssociationSet Name="foodconst" Association="Self.foodconst">
+            <End Role="foodinfo" EntitySet="foodinfo" />
+            <End Role="userintake" EntitySet="userintake" />
+          </AssociationSet>
+          <AssociationSet Name="foodstrrConstr" Association="Self.foodstrrConstr">
+            <End Role="foodstore" EntitySet="foodstore" />
+            <End Role="foodstoreitem" EntitySet="foodstoreitem" />
+          </AssociationSet>
+          <AssociationSet Name="itConstr" Association="Self.itConstr">
+            <End Role="foodinfo" EntitySet="foodinfo" />
+            <End Role="recepeitem" EntitySet="recepeitem" />
+          </AssociationSet>
+          <AssociationSet Name="iteConstr" Association="Self.iteConstr">
+            <End Role="foodinfo" EntitySet="foodinfo" />
+            <End Role="foodstoreitem" EntitySet="foodstoreitem" />
+          </AssociationSet>
+          <AssociationSet Name="itemConst" Association="Self.itemConst">
+            <End Role="foodinfo" EntitySet="foodinfo" />
+            <End Role="shoppinglistitem" EntitySet="shoppinglistitem" />
+          </AssociationSet>
+          <AssociationSet Name="memberConst" Association="Self.memberConst">
+            <End Role="user" EntitySet="user" />
+            <End Role="shoppinglistmembers" EntitySet="shoppinglistmembers" />
+          </AssociationSet>
+          <AssociationSet Name="ownerConst" Association="Self.ownerConst">
+            <End Role="user" EntitySet="user" />
+            <End Role="recepe" EntitySet="recepe" />
+          </AssociationSet>
+          <AssociationSet Name="recepeConstr" Association="Self.recepeConstr">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="recepecomments" EntitySet="recepecomments" />
+          </AssociationSet>
+          <AssociationSet Name="reConstr" Association="Self.reConstr">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="recepestep" EntitySet="recepestep" />
+          </AssociationSet>
+          <AssociationSet Name="reConstrr" Association="Self.reConstrr">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="recepeitem" EntitySet="recepeitem" />
+          </AssociationSet>
+          <AssociationSet Name="resConstr" Association="Self.resConstr">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="foodplanrecepe" EntitySet="foodplanrecepe" />
+          </AssociationSet>
+          <AssociationSet Name="respConst" Association="Self.respConst">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="favoriterecepe" EntitySet="favoriterecepe" />
+          </AssociationSet>
+          <AssociationSet Name="shopListCons" Association="Self.shopListCons">
+            <End Role="shoppinglist" EntitySet="shoppinglist" />
+            <End Role="shoppinglistitem" EntitySet="shoppinglistitem" />
+          </AssociationSet>
+          <AssociationSet Name="shoppingListConst" Association="Self.shoppingListConst">
+            <End Role="shoppinglist" EntitySet="shoppinglist" />
+            <End Role="shoppinglistmembers" EntitySet="shoppinglistmembers" />
+          </AssociationSet>
+          <AssociationSet Name="usContr" Association="Self.usContr">
+            <End Role="user" EntitySet="user" />
+            <End Role="foodplanmembers" EntitySet="foodplanmembers" />
+          </AssociationSet>
+          <AssociationSet Name="userconst" Association="Self.userconst">
+            <End Role="user" EntitySet="user" />
+            <End Role="userintake" EntitySet="userintake" />
+          </AssociationSet>
+          <AssociationSet Name="userConstr" Association="Self.userConstr">
+            <End Role="user" EntitySet="user" />
+            <End Role="favoriterecepe" EntitySet="favoriterecepe" />
+          </AssociationSet>
+          <AssociationSet Name="userConstraint" Association="Self.userConstraint">
+            <End Role="user" EntitySet="user" />
+            <End Role="useractivity" EntitySet="useractivity" />
+          </AssociationSet>
+          <AssociationSet Name="userConstrr" Association="Self.userConstrr">
+            <End Role="user" EntitySet="user" />
+            <End Role="foodplan" EntitySet="foodplan" />
+          </AssociationSet>
+          <AssociationSet Name="UserID" Association="Self.UserID">
+            <End Role="user" EntitySet="user" />
+            <End Role="foodstore" EntitySet="foodstore" />
+          </AssociationSet>
+          <AssociationSet Name="userIDconst" Association="Self.userIDconst">
+            <End Role="user" EntitySet="user" />
+            <End Role="shoppinglist" EntitySet="shoppinglist" />
+          </AssociationSet>
+          <AssociationSet Name="usrConstr" Association="Self.usrConstr">
+            <End Role="user" EntitySet="user" />
+            <End Role="recepecomments" EntitySet="recepecomments" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -39,10 +730,727 @@
           <Property Name="Password" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="SubscriptionType" Type="Int32" />
+          <NavigationProperty Name="foodstore" Relationship="Model.UserID" FromRole="user" ToRole="foodstore" />
+          <NavigationProperty Name="shoppinglist" Relationship="Model.userIDconst" FromRole="user" ToRole="shoppinglist" />
+          <NavigationProperty Name="shoppinglistmembers" Relationship="Model.memberConst" FromRole="user" ToRole="shoppinglistmembers" />
+          <NavigationProperty Name="userintake" Relationship="Model.userconst" FromRole="user" ToRole="userintake" />
+          <NavigationProperty Name="useractivity" Relationship="Model.userConstraint" FromRole="user" ToRole="useractivity" />
+          <NavigationProperty Name="favoriterecepe" Relationship="Model.userConstr" FromRole="user" ToRole="favoriterecepe" />
+          <NavigationProperty Name="foodplan" Relationship="Model.userConstrr" FromRole="user" ToRole="foodplan" />
+          <NavigationProperty Name="foodplanmembers" Relationship="Model.usContr" FromRole="user" ToRole="foodplanmembers" />
+          <NavigationProperty Name="recepe" Relationship="Model.ownerConst" FromRole="user" ToRole="recepe" />
+          <NavigationProperty Name="recepecomments" Relationship="Model.usrConstr" FromRole="user" ToRole="recepecomments" />
         </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="user" EntityType="Self.user" />
+          <EntitySet Name="activity" EntityType="Model.activity" />
+          <EntitySet Name="classif" EntityType="Model.classif" />
+          <EntitySet Name="compname" EntityType="Model.compname" />
+          <EntitySet Name="foodinfo" EntityType="Model.foodinfo" />
+          <EntitySet Name="foodstore" EntityType="Model.foodstore" />
+          <EntitySet Name="groupnames" EntityType="Model.groupnames" />
+          <EntitySet Name="references" EntityType="Model.references" />
+          <EntitySet Name="shoppinglist" EntityType="Model.shoppinglist" />
+          <EntitySet Name="shoppinglistitem" EntityType="Model.shoppinglistitem" />
+          <EntitySet Name="shoppinglistmembers" EntityType="Model.shoppinglistmembers" />
+          <EntitySet Name="sources" EntityType="Model.sources" />
+          <EntitySet Name="useractivity" EntityType="Model.useractivity" />
+          <EntitySet Name="userintake" EntityType="Model.userintake" />
+          <AssociationSet Name="activityConstraint" Association="Model.activityConstraint">
+            <End Role="activity" EntitySet="activity" />
+            <End Role="useractivity" EntitySet="useractivity" />
+          </AssociationSet>
+          <AssociationSet Name="foodconst" Association="Model.foodconst">
+            <End Role="foodinfo" EntitySet="foodinfo" />
+            <End Role="userintake" EntitySet="userintake" />
+          </AssociationSet>
+          <AssociationSet Name="itemConst" Association="Model.itemConst">
+            <End Role="foodinfo" EntitySet="foodinfo" />
+            <End Role="shoppinglistitem" EntitySet="shoppinglistitem" />
+          </AssociationSet>
+          <AssociationSet Name="UserID" Association="Model.UserID">
+            <End Role="user" EntitySet="user" />
+            <End Role="foodstore" EntitySet="foodstore" />
+          </AssociationSet>
+          <AssociationSet Name="shopListCons" Association="Model.shopListCons">
+            <End Role="shoppinglist" EntitySet="shoppinglist" />
+            <End Role="shoppinglistitem" EntitySet="shoppinglistitem" />
+          </AssociationSet>
+          <AssociationSet Name="shoppingListConst" Association="Model.shoppingListConst">
+            <End Role="shoppinglist" EntitySet="shoppinglist" />
+            <End Role="shoppinglistmembers" EntitySet="shoppinglistmembers" />
+          </AssociationSet>
+          <AssociationSet Name="userIDconst" Association="Model.userIDconst">
+            <End Role="user" EntitySet="user" />
+            <End Role="shoppinglist" EntitySet="shoppinglist" />
+          </AssociationSet>
+          <AssociationSet Name="memberConst" Association="Model.memberConst">
+            <End Role="user" EntitySet="user" />
+            <End Role="shoppinglistmembers" EntitySet="shoppinglistmembers" />
+          </AssociationSet>
+          <AssociationSet Name="userconst" Association="Model.userconst">
+            <End Role="user" EntitySet="user" />
+            <End Role="userintake" EntitySet="userintake" />
+          </AssociationSet>
+          <AssociationSet Name="userConstraint" Association="Model.userConstraint">
+            <End Role="user" EntitySet="user" />
+            <End Role="useractivity" EntitySet="useractivity" />
+          </AssociationSet>
+          <EntitySet Name="favoriterecepe" EntityType="Model.favoriterecepe" />
+          <EntitySet Name="foodplan" EntityType="Model.foodplan" />
+          <EntitySet Name="foodplanmembers" EntityType="Model.foodplanmembers" />
+          <EntitySet Name="foodplanrecepe" EntityType="Model.foodplanrecepe" />
+          <EntitySet Name="recepe" EntityType="Model.recepe" />
+          <EntitySet Name="recepecomments" EntityType="Model.recepecomments" />
+          <AssociationSet Name="respConst" Association="Model.respConst">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="favoriterecepe" EntitySet="favoriterecepe" />
+          </AssociationSet>
+          <AssociationSet Name="userConstr" Association="Model.userConstr">
+            <End Role="user" EntitySet="user" />
+            <End Role="favoriterecepe" EntitySet="favoriterecepe" />
+          </AssociationSet>
+          <AssociationSet Name="userConstrr" Association="Model.userConstrr">
+            <End Role="user" EntitySet="user" />
+            <End Role="foodplan" EntitySet="foodplan" />
+          </AssociationSet>
+          <AssociationSet Name="usContr" Association="Model.usContr">
+            <End Role="user" EntitySet="user" />
+            <End Role="foodplanmembers" EntitySet="foodplanmembers" />
+          </AssociationSet>
+          <AssociationSet Name="resConstr" Association="Model.resConstr">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="foodplanrecepe" EntitySet="foodplanrecepe" />
+          </AssociationSet>
+          <AssociationSet Name="ownerConst" Association="Model.ownerConst">
+            <End Role="user" EntitySet="user" />
+            <End Role="recepe" EntitySet="recepe" />
+          </AssociationSet>
+          <AssociationSet Name="recepeConstr" Association="Model.recepeConstr">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="recepecomments" EntitySet="recepecomments" />
+          </AssociationSet>
+          <AssociationSet Name="usrConstr" Association="Model.usrConstr">
+            <End Role="user" EntitySet="user" />
+            <End Role="recepecomments" EntitySet="recepecomments" />
+          </AssociationSet>
+          <EntitySet Name="recepestep" EntityType="Model.recepestep" />
+          <AssociationSet Name="reConstr" Association="Model.reConstr">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="recepestep" EntitySet="recepestep" />
+          </AssociationSet>
+          <EntitySet Name="recepeitem" EntityType="Model.recepeitem" />
+          <AssociationSet Name="itConstr" Association="Model.itConstr">
+            <End Role="foodinfo" EntitySet="foodinfo" />
+            <End Role="recepeitem" EntitySet="recepeitem" />
+          </AssociationSet>
+          <AssociationSet Name="reConstrr" Association="Model.reConstrr">
+            <End Role="recepe" EntitySet="recepe" />
+            <End Role="recepeitem" EntitySet="recepeitem" />
+          </AssociationSet>
+          <EntitySet Name="foodstoreitem" EntityType="Model.foodstoreitem" />
+          <AssociationSet Name="iteConstr" Association="Model.iteConstr">
+            <End Role="foodinfo" EntitySet="foodinfo" />
+            <End Role="foodstoreitem" EntitySet="foodstoreitem" />
+          </AssociationSet>
+          <AssociationSet Name="foodstrrConstr" Association="Model.foodstrrConstr">
+            <End Role="foodstore" EntitySet="foodstore" />
+            <End Role="foodstoreitem" EntitySet="foodstoreitem" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="activity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CalorieBurnPrMin" Type="Double" />
+          <NavigationProperty Name="useractivity" Relationship="Model.activityConstraint" FromRole="activity" ToRole="useractivity" />
+        </EntityType>
+        <EntityType Name="classif">
+          <Key>
+            <PropertyRef Name="MainGrp" />
+            <PropertyRef Name="SubGrp" />
+          </Key>
+          <Property Name="MainGrp" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SubGrp" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EngFdGp" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OrigFdGp" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="compname">
+          <Key>
+            <PropertyRef Name="CompId" />
+          </Key>
+          <Property Name="CompId" Type="Int32" Nullable="false" />
+          <Property Name="SrtOrd" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Unit" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CmpNamDK" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CmpNamEN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PublStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EurofoodsTag" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="foodinfo">
+          <Key>
+            <PropertyRef Name="FoodId" />
+          </Key>
+          <Property Name="FoodId" Type="Int32" Nullable="false" />
+          <Property Name="DanName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ProdName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EngName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SysName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MainGrp" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="SubGrp" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Waste" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="NCF" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="FACF" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="PEF" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FEF" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CEF" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Density" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PublStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LanguaL" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="GRIN" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FISHBASE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BASIS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="USDA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FIFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UKFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FRFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DEFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SEFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NOFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NLFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ISFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SPFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ITFood" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateUpdated" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Recipe" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="WaterYield" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FatYield" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="userintake" Relationship="Model.foodconst" FromRole="foodinfo" ToRole="userintake" />
+          <NavigationProperty Name="shoppinglistitem" Relationship="Model.itemConst" FromRole="foodinfo" ToRole="shoppinglistitem" />
+          <NavigationProperty Name="recepeitem" Relationship="Model.itConstr" FromRole="foodinfo" ToRole="recepeitem" />
+          <NavigationProperty Name="foodstoreitem" Relationship="Model.iteConstr" FromRole="foodinfo" ToRole="foodstoreitem" />
+        </EntityType>
+        <EntityType Name="foodstore">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="Model.UserID" FromRole="foodstore" ToRole="user" />
+          <NavigationProperty Name="foodstoreitem" Relationship="Model.foodstrrConstr" FromRole="foodstore" ToRole="foodstoreitem" />
+        </EntityType>
+        <EntityType Name="groupnames">
+          <Key>
+            <PropertyRef Name="MainGrp" />
+          </Key>
+          <Property Name="MainGrp" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="NameDK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NameEn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="references">
+          <Key>
+            <PropertyRef Name="RefId" />
+          </Key>
+          <Property Name="RefId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PubTypeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AcqTypeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Authors" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Publishr" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PubDate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Version" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrigLang" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Languages" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FstEdDat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EdNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NoPages" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BkTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Editors" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Pages" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LgJrName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AbJrName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ISSN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Volume" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Issue" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SeriName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SeriNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RprtTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileFrmt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WWW" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Medium" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Media" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Valid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FoodId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DateUpdated" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DocLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="shoppinglist">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CreationTime" Type="DateTime" />
+          <Property Name="DuoDate" Type="DateTime" />
+          <Property Name="Executed" Type="Boolean" />
+          <NavigationProperty Name="shoppinglistitem" Relationship="Model.shopListCons" FromRole="shoppinglist" ToRole="shoppinglistitem" />
+          <NavigationProperty Name="shoppinglistmembers" Relationship="Model.shoppingListConst" FromRole="shoppinglist" ToRole="shoppinglistmembers" />
+          <NavigationProperty Name="user" Relationship="Model.userIDconst" FromRole="shoppinglist" ToRole="user" />
+        </EntityType>
+        <EntityType Name="shoppinglistitem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShoppingListID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Unit" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ExpireDay" Type="DateTime" />
+          <Property Name="Basic" Type="Boolean" />
+          <NavigationProperty Name="foodinfo" Relationship="Model.itemConst" FromRole="shoppinglistitem" ToRole="foodinfo" />
+          <NavigationProperty Name="shoppinglist" Relationship="Model.shopListCons" FromRole="shoppinglistitem" ToRole="shoppinglist" />
+        </EntityType>
+        <EntityType Name="shoppinglistmembers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShoppingListID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="shoppinglist" Relationship="Model.shoppingListConst" FromRole="shoppinglistmembers" ToRole="shoppinglist" />
+          <NavigationProperty Name="user" Relationship="Model.memberConst" FromRole="shoppinglistmembers" ToRole="user" />
+        </EntityType>
+        <EntityType Name="sources">
+          <Key>
+            <PropertyRef Name="SourceRefId" />
+          </Key>
+          <Property Name="SourceRefId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SourceID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="RefId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="useractivity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ActivityID" Type="Int32" Nullable="false" />
+          <Property Name="CalorieBurn" Type="Double" />
+          <Property Name="StartTime" Type="DateTime" />
+          <Property Name="EndTime" Type="DateTime" />
+          <NavigationProperty Name="activity" Relationship="Model.activityConstraint" FromRole="useractivity" ToRole="activity" />
+          <NavigationProperty Name="user" Relationship="Model.userConstraint" FromRole="useractivity" ToRole="user" />
+        </EntityType>
+        <EntityType Name="userintake">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="ColorieBurn" Type="Double" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Time" Type="DateTime" />
+          <NavigationProperty Name="foodinfo" Relationship="Model.foodconst" FromRole="userintake" ToRole="foodinfo" />
+          <NavigationProperty Name="user" Relationship="Model.userconst" FromRole="userintake" ToRole="user" />
+        </EntityType>
+        <Association Name="activityConstraint">
+          <End Type="Model.activity" Role="activity" Multiplicity="1" />
+          <End Type="Model.useractivity" Role="useractivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="activity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="useractivity">
+              <PropertyRef Name="ActivityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foodconst">
+          <End Type="Model.foodinfo" Role="foodinfo" Multiplicity="1" />
+          <End Type="Model.userintake" Role="userintake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodinfo">
+              <PropertyRef Name="FoodId" />
+            </Principal>
+            <Dependent Role="userintake">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="itemConst">
+          <End Type="Model.foodinfo" Role="foodinfo" Multiplicity="1" />
+          <End Type="Model.shoppinglistitem" Role="shoppinglistitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodinfo">
+              <PropertyRef Name="FoodId" />
+            </Principal>
+            <Dependent Role="shoppinglistitem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserID">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.foodstore" Role="foodstore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodstore">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="shopListCons">
+          <End Type="Model.shoppinglist" Role="shoppinglist" Multiplicity="1" />
+          <End Type="Model.shoppinglistitem" Role="shoppinglistitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shoppinglist">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="shoppinglistitem">
+              <PropertyRef Name="ShoppingListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="shoppingListConst">
+          <End Type="Model.shoppinglist" Role="shoppinglist" Multiplicity="1" />
+          <End Type="Model.shoppinglistmembers" Role="shoppinglistmembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shoppinglist">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="shoppinglistmembers">
+              <PropertyRef Name="ShoppingListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userIDconst">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.shoppinglist" Role="shoppinglist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="shoppinglist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="memberConst">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.shoppinglistmembers" Role="shoppinglistmembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="shoppinglistmembers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userconst">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.userintake" Role="userintake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="userintake">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userConstraint">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.useractivity" Role="useractivity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="useractivity">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="favoriterecepe">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RecepeID" Type="Int32" Nullable="false" />
+          <Property Name="Rating" Type="Int32" />
+          <NavigationProperty Name="recepe" Relationship="Model.respConst" FromRole="favoriterecepe" ToRole="recepe" />
+          <NavigationProperty Name="user" Relationship="Model.userConstr" FromRole="favoriterecepe" ToRole="user" />
+        </EntityType>
+        <EntityType Name="foodplan">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="CreationTime" Type="DateTime" />
+          <NavigationProperty Name="user" Relationship="Model.userConstrr" FromRole="foodplan" ToRole="user" />
+        </EntityType>
+        <EntityType Name="foodplanmembers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodPlanID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Model.usContr" FromRole="foodplanmembers" ToRole="user" />
+        </EntityType>
+        <EntityType Name="foodplanrecepe">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodPlanID" Type="Int32" Nullable="false" />
+          <Property Name="RecepeID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" />
+          <Property Name="Type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Consumed" Type="Boolean" />
+          <NavigationProperty Name="recepe" Relationship="Model.resConstr" FromRole="foodplanrecepe" ToRole="recepe" />
+        </EntityType>
+        <EntityType Name="recepe">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Owner" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+          <Property Name="Details" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="favoriterecepe" Relationship="Model.respConst" FromRole="recepe" ToRole="favoriterecepe" />
+          <NavigationProperty Name="foodplanrecepe" Relationship="Model.resConstr" FromRole="recepe" ToRole="foodplanrecepe" />
+          <NavigationProperty Name="user" Relationship="Model.ownerConst" FromRole="recepe" ToRole="user" />
+          <NavigationProperty Name="recepecomments" Relationship="Model.recepeConstr" FromRole="recepe" ToRole="recepecomments" />
+          <NavigationProperty Name="recepestep" Relationship="Model.reConstr" FromRole="recepe" ToRole="recepestep" />
+          <NavigationProperty Name="recepeitem" Relationship="Model.reConstrr" FromRole="recepe" ToRole="recepeitem" />
+        </EntityType>
+        <EntityType Name="recepecomments">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecepeID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" />
+          <NavigationProperty Name="recepe" Relationship="Model.recepeConstr" FromRole="recepecomments" ToRole="recepe" />
+          <NavigationProperty Name="user" Relationship="Model.usrConstr" FromRole="recepecomments" ToRole="user" />
+        </EntityType>
+        <Association Name="respConst">
+          <End Type="Model.recepe" Role="recepe" Multiplicity="1" />
+          <End Type="Model.favoriterecepe" Role="favoriterecepe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="favoriterecepe">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userConstr">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.favoriterecepe" Role="favoriterecepe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="favoriterecepe">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userConstrr">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.foodplan" Role="foodplan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodplan">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usContr">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.foodplanmembers" Role="foodplanmembers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodplanmembers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="resConstr">
+          <End Type="Model.recepe" Role="recepe" Multiplicity="1" />
+          <End Type="Model.foodplanrecepe" Role="foodplanrecepe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodplanrecepe">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ownerConst">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.recepe" Role="recepe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepe">
+              <PropertyRef Name="Owner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="recepeConstr">
+          <End Type="Model.recepe" Role="recepe" Multiplicity="1" />
+          <End Type="Model.recepecomments" Role="recepecomments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepecomments">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="usrConstr">
+          <End Type="Model.user" Role="user" Multiplicity="1" />
+          <End Type="Model.recepecomments" Role="recepecomments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepecomments">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="recepestep">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecepeID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="recepe" Relationship="Model.reConstr" FromRole="recepestep" ToRole="recepe" />
+        </EntityType>
+        <Association Name="reConstr">
+          <End Type="Model.recepe" Role="recepe" Multiplicity="1" />
+          <End Type="Model.recepestep" Role="recepestep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepestep">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="recepeitem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecepeID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Unit" Type="Double" />
+          <NavigationProperty Name="foodinfo" Relationship="Model.itConstr" FromRole="recepeitem" ToRole="foodinfo" />
+          <NavigationProperty Name="recepe" Relationship="Model.reConstrr" FromRole="recepeitem" ToRole="recepe" />
+        </EntityType>
+        <Association Name="itConstr">
+          <End Type="Model.foodinfo" Role="foodinfo" Multiplicity="1" />
+          <End Type="Model.recepeitem" Role="recepeitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodinfo">
+              <PropertyRef Name="FoodId" />
+            </Principal>
+            <Dependent Role="recepeitem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reConstrr">
+          <End Type="Model.recepe" Role="recepe" Multiplicity="1" />
+          <End Type="Model.recepeitem" Role="recepeitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="recepe">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="recepeitem">
+              <PropertyRef Name="RecepeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="foodstoreitem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodStoreID" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="Unit" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BoughtTime" Type="DateTime" />
+          <Property Name="Basic" Type="Boolean" />
+          <Property Name="ExpireDay" Type="DateTime" />
+          <Property Name="UseLess" Type="Boolean" />
+          <NavigationProperty Name="foodinfo" Relationship="Model.iteConstr" FromRole="foodstoreitem" ToRole="foodinfo" />
+          <NavigationProperty Name="foodstore" Relationship="Model.foodstrrConstr" FromRole="foodstoreitem" ToRole="foodstore" />
+        </EntityType>
+        <Association Name="iteConstr">
+          <End Type="Model.foodinfo" Role="foodinfo" Multiplicity="1" />
+          <End Type="Model.foodstoreitem" Role="foodstoreitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodinfo">
+              <PropertyRef Name="FoodId" />
+            </Principal>
+            <Dependent Role="foodstoreitem">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foodstrrConstr">
+          <End Type="Model.foodstore" Role="foodstore" Multiplicity="1" />
+          <End Type="Model.foodstoreitem" Role="foodstoreitem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="foodstore">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="foodstoreitem">
+              <PropertyRef Name="FoodStoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -64,7 +1472,308 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="activity">
+            <EntityTypeMapping TypeName="Model.activity">
+              <MappingFragment StoreEntitySet="activity">
+                <ScalarProperty Name="CalorieBurnPrMin" ColumnName="CalorieBurnPrMin" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="classif">
+            <EntityTypeMapping TypeName="Model.classif">
+              <MappingFragment StoreEntitySet="classif">
+                <ScalarProperty Name="OrigFdGp" ColumnName="OrigFdGp" />
+                <ScalarProperty Name="EngFdGp" ColumnName="EngFdGp" />
+                <ScalarProperty Name="SubGrp" ColumnName="SubGrp" />
+                <ScalarProperty Name="MainGrp" ColumnName="MainGrp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="compname">
+            <EntityTypeMapping TypeName="Model.compname">
+              <MappingFragment StoreEntitySet="compname">
+                <ScalarProperty Name="EurofoodsTag" ColumnName="EurofoodsTag" />
+                <ScalarProperty Name="PublStatus" ColumnName="PublStatus" />
+                <ScalarProperty Name="CmpNamEN" ColumnName="CmpNamEN" />
+                <ScalarProperty Name="CmpNamDK" ColumnName="CmpNamDK" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="SrtOrd" ColumnName="SrtOrd" />
+                <ScalarProperty Name="CompId" ColumnName="CompId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="foodinfo">
+            <EntityTypeMapping TypeName="Model.foodinfo">
+              <MappingFragment StoreEntitySet="foodinfo">
+                <ScalarProperty Name="FatYield" ColumnName="FatYield" />
+                <ScalarProperty Name="WaterYield" ColumnName="WaterYield" />
+                <ScalarProperty Name="Recipe" ColumnName="Recipe" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="ITFood" ColumnName="ITFood" />
+                <ScalarProperty Name="SPFood" ColumnName="SPFood" />
+                <ScalarProperty Name="ISFood" ColumnName="ISFood" />
+                <ScalarProperty Name="NLFood" ColumnName="NLFood" />
+                <ScalarProperty Name="NOFood" ColumnName="NOFood" />
+                <ScalarProperty Name="SEFood" ColumnName="SEFood" />
+                <ScalarProperty Name="DEFood" ColumnName="DEFood" />
+                <ScalarProperty Name="FRFood" ColumnName="FRFood" />
+                <ScalarProperty Name="UKFood" ColumnName="UKFood" />
+                <ScalarProperty Name="FIFood" ColumnName="FIFood" />
+                <ScalarProperty Name="USDA" ColumnName="USDA" />
+                <ScalarProperty Name="BASIS" ColumnName="BASIS" />
+                <ScalarProperty Name="FISHBASE" ColumnName="FISHBASE" />
+                <ScalarProperty Name="GRIN" ColumnName="GRIN" />
+                <ScalarProperty Name="LanguaL" ColumnName="LanguaL" />
+                <ScalarProperty Name="PublStatus" ColumnName="PublStatus" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Density" ColumnName="Density" />
+                <ScalarProperty Name="CEF" ColumnName="CEF" />
+                <ScalarProperty Name="FEF" ColumnName="FEF" />
+                <ScalarProperty Name="PEF" ColumnName="PEF" />
+                <ScalarProperty Name="FACF" ColumnName="FACF" />
+                <ScalarProperty Name="NCF" ColumnName="NCF" />
+                <ScalarProperty Name="Waste" ColumnName="Waste" />
+                <ScalarProperty Name="SubGrp" ColumnName="SubGrp" />
+                <ScalarProperty Name="MainGrp" ColumnName="MainGrp" />
+                <ScalarProperty Name="SysName" ColumnName="SysName" />
+                <ScalarProperty Name="EngName" ColumnName="EngName" />
+                <ScalarProperty Name="ProdName" ColumnName="ProdName" />
+                <ScalarProperty Name="DanName" ColumnName="DanName" />
+                <ScalarProperty Name="FoodId" ColumnName="FoodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="foodstore">
+            <EntityTypeMapping TypeName="Model.foodstore">
+              <MappingFragment StoreEntitySet="foodstore">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="groupnames">
+            <EntityTypeMapping TypeName="Model.groupnames">
+              <MappingFragment StoreEntitySet="groupnames">
+                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+                <ScalarProperty Name="NameDK" ColumnName="NameDK" />
+                <ScalarProperty Name="MainGrp" ColumnName="MainGrp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="references">
+            <EntityTypeMapping TypeName="Model.references">
+              <MappingFragment StoreEntitySet="references">
+                <ScalarProperty Name="DocLink" ColumnName="DocLink" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="FoodId" ColumnName="FoodId" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Valid" ColumnName="Valid" />
+                <ScalarProperty Name="Media" ColumnName="Media" />
+                <ScalarProperty Name="OS" ColumnName="OS" />
+                <ScalarProperty Name="Medium" ColumnName="Medium" />
+                <ScalarProperty Name="WWW" ColumnName="WWW" />
+                <ScalarProperty Name="FileFrmt" ColumnName="FileFrmt" />
+                <ScalarProperty Name="RprtTitle" ColumnName="RprtTitle" />
+                <ScalarProperty Name="SeriNo" ColumnName="SeriNo" />
+                <ScalarProperty Name="SeriName" ColumnName="SeriName" />
+                <ScalarProperty Name="Issue" ColumnName="Issue" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="ISSN" ColumnName="ISSN" />
+                <ScalarProperty Name="AbJrName" ColumnName="AbJrName" />
+                <ScalarProperty Name="LgJrName" ColumnName="LgJrName" />
+                <ScalarProperty Name="Pages" ColumnName="Pages" />
+                <ScalarProperty Name="Editors" ColumnName="Editors" />
+                <ScalarProperty Name="BkTitle" ColumnName="BkTitle" />
+                <ScalarProperty Name="NoPages" ColumnName="NoPages" />
+                <ScalarProperty Name="EdNo" ColumnName="EdNo" />
+                <ScalarProperty Name="FstEdDat" ColumnName="FstEdDat" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Languages" ColumnName="Languages" />
+                <ScalarProperty Name="OrigLang" ColumnName="OrigLang" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="PubDate" ColumnName="PubDate" />
+                <ScalarProperty Name="Publishr" ColumnName="Publishr" />
+                <ScalarProperty Name="Authors" ColumnName="Authors" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AcqTypeId" ColumnName="AcqTypeId" />
+                <ScalarProperty Name="PubTypeId" ColumnName="PubTypeId" />
+                <ScalarProperty Name="RefId" ColumnName="RefId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shoppinglist">
+            <EntityTypeMapping TypeName="Model.shoppinglist">
+              <MappingFragment StoreEntitySet="shoppinglist">
+                <ScalarProperty Name="Executed" ColumnName="Executed" />
+                <ScalarProperty Name="DuoDate" ColumnName="DuoDate" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shoppinglistitem">
+            <EntityTypeMapping TypeName="Model.shoppinglistitem">
+              <MappingFragment StoreEntitySet="shoppinglistitem">
+                <ScalarProperty Name="Basic" ColumnName="Basic" />
+                <ScalarProperty Name="ExpireDay" ColumnName="ExpireDay" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ShoppingListID" ColumnName="ShoppingListID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shoppinglistmembers">
+            <EntityTypeMapping TypeName="Model.shoppinglistmembers">
+              <MappingFragment StoreEntitySet="shoppinglistmembers">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ShoppingListID" ColumnName="ShoppingListID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sources">
+            <EntityTypeMapping TypeName="Model.sources">
+              <MappingFragment StoreEntitySet="sources">
+                <ScalarProperty Name="RefId" ColumnName="RefId" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="SourceRefId" ColumnName="SourceRefId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="useractivity">
+            <EntityTypeMapping TypeName="Model.useractivity">
+              <MappingFragment StoreEntitySet="useractivity">
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="CalorieBurn" ColumnName="CalorieBurn" />
+                <ScalarProperty Name="ActivityID" ColumnName="ActivityID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userintake">
+            <EntityTypeMapping TypeName="Model.userintake">
+              <MappingFragment StoreEntitySet="userintake">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ColorieBurn" ColumnName="ColorieBurn" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="favoriterecepe">
+            <EntityTypeMapping TypeName="Model.favoriterecepe">
+              <MappingFragment StoreEntitySet="favoriterecepe">
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="RecepeID" ColumnName="RecepeID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="foodplan">
+            <EntityTypeMapping TypeName="Model.foodplan">
+              <MappingFragment StoreEntitySet="foodplan">
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="foodplanmembers">
+            <EntityTypeMapping TypeName="Model.foodplanmembers">
+              <MappingFragment StoreEntitySet="foodplanmembers">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FoodPlanID" ColumnName="FoodPlanID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="foodplanrecepe">
+            <EntityTypeMapping TypeName="Model.foodplanrecepe">
+              <MappingFragment StoreEntitySet="foodplanrecepe">
+                <ScalarProperty Name="Consumed" ColumnName="Consumed" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="RecepeID" ColumnName="RecepeID" />
+                <ScalarProperty Name="FoodPlanID" ColumnName="FoodPlanID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recepe">
+            <EntityTypeMapping TypeName="Model.recepe">
+              <MappingFragment StoreEntitySet="recepe">
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recepecomments">
+            <EntityTypeMapping TypeName="Model.recepecomments">
+              <MappingFragment StoreEntitySet="recepecomments">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RecepeID" ColumnName="RecepeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recepestep">
+            <EntityTypeMapping TypeName="Model.recepestep">
+              <MappingFragment StoreEntitySet="recepestep">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RecepeID" ColumnName="RecepeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="recepeitem">
+            <EntityTypeMapping TypeName="Model.recepeitem">
+              <MappingFragment StoreEntitySet="recepeitem">
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="RecepeID" ColumnName="RecepeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="foodstoreitem">
+            <EntityTypeMapping TypeName="Model.foodstoreitem">
+              <MappingFragment StoreEntitySet="foodstoreitem">
+                <ScalarProperty Name="UseLess" ColumnName="UseLess" />
+                <ScalarProperty Name="ExpireDay" ColumnName="ExpireDay" />
+                <ScalarProperty Name="Basic" ColumnName="Basic" />
+                <ScalarProperty Name="BoughtTime" ColumnName="BoughtTime" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="FoodStoreID" ColumnName="FoodStoreID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

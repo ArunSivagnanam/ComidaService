@@ -26,5 +26,27 @@ namespace ComidaService.Models
         }
     
         public virtual DbSet<user> user { get; set; }
+        public virtual DbSet<activity> activity { get; set; }
+        public virtual DbSet<classif> classif { get; set; }
+        public virtual DbSet<compname> compname { get; set; }
+        public virtual DbSet<foodinfo> foodinfo { get; set; }
+        public virtual DbSet<foodstore> foodstore { get; set; }
+        public virtual DbSet<groupnames> groupnames { get; set; }
+        public virtual DbSet<references> references { get; set; }
+        public virtual DbSet<shoppinglist> shoppinglist { get; set; }
+        public virtual DbSet<shoppinglistitem> shoppinglistitem { get; set; }
+        public virtual DbSet<shoppinglistmembers> shoppinglistmembers { get; set; }
+        public virtual DbSet<sources> sources { get; set; }
+        public virtual DbSet<useractivity> useractivity { get; set; }
+        public virtual DbSet<userintake> userintake { get; set; }
+        public virtual DbSet<favoriterecepe> favoriterecepe { get; set; }
+        public virtual DbSet<foodplan> foodplan { get; set; }
+        public virtual DbSet<foodplanmembers> foodplanmembers { get; set; }
+        public virtual DbSet<foodplanrecepe> foodplanrecepe { get; set; }
+        public virtual DbSet<recepe> recepe { get; set; }
+        public virtual DbSet<recepecomments> recepecomments { get; set; }
+        public virtual DbSet<recepestep> recepestep { get; set; }
+        public virtual DbSet<recepeitem> recepeitem { get; set; }
+        public virtual DbSet<foodstoreitem> foodstoreitem { get; set; }
     }
 }

@@ -31,5 +31,13 @@ namespace ComidaService.DataAccess
             return result;
         }
 
+
+        // getUserByID
+        // getUserBYUsername
+        // UpdateUser
+        // addUser
+        // MakeUserInactive
+
+
     }
 }

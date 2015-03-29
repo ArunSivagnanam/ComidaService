@@ -14,6 +14,20 @@ namespace ComidaService.Models
     
     public partial class user
     {
+        public user()
+        {
+            this.foodstore = new HashSet<foodstore>();
+            this.shoppinglist = new HashSet<shoppinglist>();
+            this.shoppinglistmembers = new HashSet<shoppinglistmembers>();
+            this.userintake = new HashSet<userintake>();
+            this.useractivity = new HashSet<useractivity>();
+            this.favoriterecepe = new HashSet<favoriterecepe>();
+            this.foodplan = new HashSet<foodplan>();
+            this.foodplanmembers = new HashSet<foodplanmembers>();
+            this.recepe = new HashSet<recepe>();
+            this.recepecomments = new HashSet<recepecomments>();
+        }
+    
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,5 +37,16 @@ namespace ComidaService.Models
         public string Password { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<int> SubscriptionType { get; set; }
+    
+        public virtual ICollection<foodstore> foodstore { get; set; }
+        public virtual ICollection<shoppinglist> shoppinglist { get; set; }
+        public virtual ICollection<shoppinglistmembers> shoppinglistmembers { get; set; }
+        public virtual ICollection<userintake> userintake { get; set; }
+        public virtual ICollection<useractivity> useractivity { get; set; }
+        public virtual ICollection<favoriterecepe> favoriterecepe { get; set; }
+        public virtual ICollection<foodplan> foodplan { get; set; }
+        public virtual ICollection<foodplanmembers> foodplanmembers { get; set; }
+        public virtual ICollection<recepe> recepe { get; set; }
+        public virtual ICollection<recepecomments> recepecomments { get; set; }
     }
 }
